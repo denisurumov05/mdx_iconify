@@ -41,8 +41,8 @@ class IconifyExtension(Extension):
 
     def __init__(self, **kwargs):
         self.config = {
-            'width' : [str, 'Default width for all icons.'],
-            'height' : [str, 'Default height for all icons.'],
+            'width' : ['', 'Default width for all icons.'],
+            'height' : ['', 'Default height for all icons.'],
             'patterns' : [{}, 'Patterns to match, organized as {"namespace": {"prefix": <str>, "suffix": <str>, "check_suffix": <bool>]}.']
         }
         super(IconifyExtension, self).__init__(**kwargs)
@@ -50,3 +50,6 @@ class IconifyExtension(Extension):
     def extendMarkdown(self, md):
         ICONIFY_PATTERN = r':i:(.*?):(.*?):'
         md.inlinePatterns.register(IconifyInlineProcessor(ICONIFY_PATTERN, md, self.getConfigs()), 'img', 175)
+
+def makeExtension(*args, **kwargs):
+    return IconifyExtension(*args, **kwargs)
